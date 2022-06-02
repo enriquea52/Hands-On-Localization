@@ -54,10 +54,7 @@ This project has been carried out by:
 ├── package.xml
 ├── README.md
 ├── scripts
-│   ├── laser_scan_to_point_cloud.py
-│   └── __pycache__
-│       ├── lib_cloud_conversion_between_Open3D_and_ROS.cpython-38.pyc
-│       └── utils.cpython-38.pyc
+│   └── laser_scan_to_point_cloud.py
 └── src
     └── pekslam.cpp
 
