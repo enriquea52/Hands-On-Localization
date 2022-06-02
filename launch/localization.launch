@@ -1,0 +1,17 @@
+<launch>
+
+    <!-- Setting frame id param-->
+    <param name="~frame_id" type="string" value="odom" />
+
+    <!-- Loading parameters required for the pkg -->
+    <arg name="tbot_name" default="/turtlebot2"/>
+    <arg name="lidar_rotation" default="true"/>
+    <rosparam file="$(find localization)/config/parameters.yaml" command="load" subst_value="true"/>    
+
+    <!-- Launching laser scanner to pointcloud converter -->
+    <node pkg="localization" type="laser_scan_to_point_cloud.py" name="laserscan_to_pointcloud"/>
+
+    <!-- Launching pekslam node -->
+    <node pkg="localization" type="pekslam" name="pekslam_node"/>
+
+</launch>

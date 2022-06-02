@@ -1,0 +1,17 @@
+tbot_odometry_topic: $(arg tbot_name)/odom
+
+tbot_rplidar_scan_topic: $(arg tbot_name)/rplidar/scan
+
+Qk_v: 1
+
+Qk_w: 0.2
+
+Rk_x: 0.001
+
+Rk_y: 0.001
+
+Rk_theta: 0.001
+
+icp_max_correspondance: 0.07
+
+rotate_laser_scan: $(arg lidar_rotation)

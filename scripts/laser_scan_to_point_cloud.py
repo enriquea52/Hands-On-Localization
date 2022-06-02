@@ -10,13 +10,14 @@ rospy.init_node("laserscan_to_pointcloud")
 
 lp = lg.LaserProjection()
 
-pc_pub = rospy.Publisher("/turtlebot/rplidar/scan/converted_pc", PointCloud2, queue_size=1)
+pc_pub = rospy.Publisher("~converted_pc", PointCloud2, queue_size=1)
 
 def scan_cb(msg):
 
     pc2_msg = lp.projectLaser(msg)
     pc_pub.publish(pc2_msg)
 
+scan_topic = rospy.get_param("/tbot_rplidar_scan_topic")
 
-rospy.Subscriber("/turtlebot/rplidar/scan", LaserScan, scan_cb, queue_size=1)
+rospy.Subscriber(scan_topic, LaserScan, scan_cb, queue_size=1)
 rospy.spin()

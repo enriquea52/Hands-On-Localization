@@ -1,0 +1,26 @@
+<launch>
+    <!-- Seeting frame id param-->
+    <param name="~frame_id" type="string" value="odom" />
+
+    <!-- Loading parameters required for the pkg -->
+    <arg name="tbot_name" default="/turtlebot"/>
+    <arg name="lidar_rotation" default="false"/>
+    <rosparam file="$(find localization)/config/parameters.yaml" command="load" subst_value="true"/>
+
+    <!--node for launching the small house world simulation-->
+    <include file="$(find small_house_world)/launch/small_house.launch" />
+
+    <!--node for launching the turtlebot model simulation on rviz-->
+    <include file="$(find turtlebot_desktop)/launch/sim_start.launch" />
+
+    <!-- Launching keyboard controller -->
+    <include file="$(find turtlebot_desktop)/launch/keyboard_teleop.launch" />
+    
+    <!-- Launching laser scanner to pointcloud converter -->
+    <node pkg="localization" type="laser_scan_to_point_cloud.py" name="laserscan_to_pointcloud"/>
+
+    <!-- Launching pekslam node -->
+    <node pkg="localization" type="pekslam" name="pekslam_node"/>
+
+
+</launch>

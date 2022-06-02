@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(perception)
+project(localization)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   visualization_msgs
+  tf
 )
 
 
@@ -110,7 +111,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES perception
+#  LIBRARIES localization
 #  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs visualization_msgs
 #  DEPENDS system_lib
 )
@@ -128,7 +129,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/perception.cpp
+#   src/${PROJECT_NAME}/localization.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -139,7 +140,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/perception_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/localization_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -203,7 +204,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_perception.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_localization.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -212,17 +213,21 @@ include_directories(
 # catkin_add_nosetests(test)
 
 find_package(PCL 1.2 REQUIRED)
-
-
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-ADD_LIBRARY(LibsModule 
+ 
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
+
+ADD_LIBRARY(LibsModule_localization
     libs/icp_odom.cpp
+    libs/slam.cpp
+    libs/vis_utils.cpp
 )
 
 
 
-add_executable(icp_node src/main.cpp)
-target_link_libraries(icp_node LibsModule ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+add_executable(pekslam src/pekslam.cpp)
+target_link_libraries(pekslam LibsModule_localization ${catkin_LIBRARIES} ${PCL_LIBRARIES} Eigen3::Eigen)
