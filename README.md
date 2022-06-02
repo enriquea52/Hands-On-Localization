@@ -15,8 +15,10 @@ The present package provides an implementation of the Posed based Extended Kalma
 
 <p align="center">
 <img src="./docs/imgs/pseudo.png" alt="drawing" width="300" title = "PEKSLAM pseudocode"/>
+<img src="./docs/imgs/slam.png" alt="drawing" width="270" title = "PEKSLAM result"/>
+
 </p>
-<figcaption align="center"><b> Figure 2. PEKSLAM pseudocode</b></figcaption>
+<figcaption align="center"><b> Figure 2. PEKSLAM pseudocode and result after execting a loop closure</b></figcaption>
 </figure>
 
 ## Team Members:
