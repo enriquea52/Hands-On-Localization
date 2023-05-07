@@ -1,6 +1,5 @@
 # Pose Based EKF SLAM (PEKSLAM) Using LiDAR Scans and ICP 
 
-**This project belongs to the Universitat de Girona. It is forbidden to publish this project or any derivative work in any public repository.**
 
 Prototype and main components:
 
